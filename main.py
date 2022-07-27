@@ -2,6 +2,7 @@ import os
 import telebot
 import logging
 import psycopg2
+from telebot import types
 from config import *
 from flask import Flask, request
 
@@ -24,6 +25,15 @@ def start(message):
     user_id = message.from_user.id
     username = message.from_user.username
     bot.reply_to(message, f'Hi, {username}')
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+    schedule = types.KeyboardButton("Расписание")
+    events = types.KeyboardButton("Мероприятия")
+    clubs = types.KeyboardButton("Присоединиться к клубу")
+    diary = types.KeyboardButton("Переход в СУШ")
+    grades = types.KeyboardButton("Калькулятор оценок и анализ")
+    food = types.KeyboardButton("Сегодняшнее меню")
+    markup.add(schedule, events, clubs, diary, grades, food)
+    bot.send_message(message.chat.id, "Подробную информацию можно найти, нажав на кнопки меню", reply_markup=markup)
 
     db_object.execute(f"SELECT id FROM users WHERE id = {user_id}")
     result = db_object.fetchone()
