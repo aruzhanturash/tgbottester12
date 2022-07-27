@@ -170,11 +170,11 @@ def callback(call):
      item_7m = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/1fUHEs_64iLrIZCEOUHoX7z5pQ4IqAjQb/view?usp=sharing')
      markup_inline.add(item_7m)
      bot.send_message(call.message.chat.id, "7M", reply_markup=markup_inline)
-    elif call.data =='Олимпиады':
+    elif call.data =='olympiads':
        bot.answer_callback_query(call.id, text='На сегодня ничего не запланировано', show_alert=True)
-    elif call.data == 'Встречи':
+    elif call.data == 'meetings':
        bot.send_message(call.message.chat.id, url= 'https://drive.google.com/file/d/1PXIoPomzrfK_jxNr8h9jalYnXKuut3-f/view?usp=sharing' )
-    elif call.data == 'Другое':
+    elif call.data == 'other':
         bot.answer_callback_query(call.id, text='Сегодня в 17:00 в фойе школы пройдет мастер-класс по рисованию.', show_alert=True)
 
 
