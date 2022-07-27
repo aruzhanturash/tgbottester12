@@ -89,19 +89,15 @@ def get_text_from_user(message):
         markup.row(item_sup)
         markup.row(item_ext)
         bot.send_message(message.chat.id, "Меню:", reply_markup=markup)
-
-
-@bot.message_handler(content_types=['text'])
-def check(message):
-    if message.text == 'Завтрак':
-        bot.reply_to(message, 'Рисовая каша')
-    elif message.text == 'Обед':
-        bot.reply_to(message, 'Куриный суп и плов')
-    elif message.text == 'Полдник':
-        bot.reply_to(message, 'Печенье')
-    elif message.text == 'Выход':
-        markup_close = types.ReplyKeyboardRemove()
-        bot.send_message(message.chat.id, "Спасибо за обращение", reply_markup=markup_close)
+        if message.text == 'Завтрак':
+            bot.reply_to(message, 'Рисовая каша')
+        elif message.text == 'Обед':
+            bot.reply_to(message, 'Куриный суп и плов')
+        elif message.text == 'Полдник':
+            bot.reply_to(message, 'Печенье')
+        elif message.text == 'Выход':
+            markup_close = types.ReplyKeyboardRemove()
+            bot.send_message(message.chat.id, "Спасибо за обращение", reply_markup=markup_close)
 
 
 @bot.callback_query_handler(func=lambda call: True)
