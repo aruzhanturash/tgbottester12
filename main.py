@@ -98,6 +98,14 @@ def get_text_from_user(message):
     elif message.text == 'Выход':
         markup_close = types.ReplyKeyboardRemove()
         bot.send_message(message.chat.id, "Спасибо за обращение", reply_markup=markup_close)
+    elif message.text == 'Сегодняшние мероприятия':
+        markup_inline = types.InlineKeyboardMarkup()
+        item_yes = types.InlineKeyboardButton(text='Олимпиады', callback_data='olympiads')
+        item_no = types.InlineKeyboardButton(text='Встречи', callback_data='meetings')
+        item_address = types.InlineKeyboardButton(text='Другое', callback_data='other')
+        markup_inline.add(item_address)
+        markup_inline.add(item_yes, item_no)
+        bot.send_message(message.chat.id, "Что вас интересует?", reply_markup=markup_inline)
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -156,12 +164,18 @@ def callback(call):
      item_7l = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/1tI-FRMnCpdPUFWQ4X0XG46kV3b3H60DL/view?usp=sharing')
      markup_inline.add(item_7l)
      bot.send_message(call.message.chat.id, "7L", reply_markup=markup_inline)
-    elif call.data== '7M':
+    elif call.data == '7M':
      markup_inline = types.InlineKeyboardMarkup(row_width=3)
      markup = types.ReplyKeyboardMarkup()
      item_7m = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/1fUHEs_64iLrIZCEOUHoX7z5pQ4IqAjQb/view?usp=sharing')
      markup_inline.add(item_7m)
      bot.send_message(call.message.chat.id, "7M", reply_markup=markup_inline)
+    elif call.data =='Олимпиады':
+       bot.answer_callback_query(call.id, text='На сегодня ничего не запланировано', show_alert=True)
+    elif call.data == 'Встречи':
+       bot.send_message(call.message.chat.id, url= 'https://drive.google.com/file/d/1PXIoPomzrfK_jxNr8h9jalYnXKuut3-f/view?usp=sharing' )
+    elif call.data == 'Другое':
+        bot.answer_callback_query(call.id, text='Сегодня в 17:00 в фойе школы пройдет мастер-класс по рисованию.', show_alert=True)
 
 
 @bot.message_handler(commands=["stats"])
