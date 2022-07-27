@@ -91,6 +91,19 @@ def get_text_from_user(message):
         bot.send_message(message.chat.id, "Меню:", reply_markup=markup)
 
 
+@bot.message_handler(content_types=['text'])
+def check(message):
+    if message.text == 'Завтрак':
+        bot.reply_to(message, 'Рисовая каша')
+    elif message.text == 'Обед':
+        bot.reply_to(message, 'Куриный суп и плов')
+    elif message.text == 'Полдник':
+        bot.reply_to(message, 'Печенье')
+    elif message.text == 'Выход':
+        markup_close = types.ReplyKeyboardRemove()
+        bot.send_message(message.chat.id, "Спасибо за обращение", reply_markup=markup_close)
+
+
 @bot.callback_query_handler(func=lambda call: True)
 def callback(call):
     if call.data == '7':
@@ -153,19 +166,6 @@ def callback(call):
      item_7m = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/1fUHEs_64iLrIZCEOUHoX7z5pQ4IqAjQb/view?usp=sharing')
      markup_inline.add(item_7m)
      bot.send_message(call.message.chat.id, "7M", reply_markup=markup_inline)
-
-
-@bot.message_handler(content_types=['text'])
-def check(message):
-    if message.text == 'Завтрак':
-        bot.reply_to(message, 'Рисовая каша')
-    elif message.text == 'Обед':
-        bot.reply_to(message, 'Куриный суп и плов')
-    elif message.text == 'Полдник':
-        bot.reply_to(message, 'Печенье')
-    elif message.text == 'Выход':
-        markup_close = types.ReplyKeyboardRemove()
-        bot.send_message(message.chat.id, "Спасибо за обращение", reply_markup=markup_close)
 
 
 @bot.message_handler(commands=["stats"])
