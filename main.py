@@ -103,8 +103,8 @@ def get_text_from_user(message):
         item_yes = types.InlineKeyboardButton(text='Олимпиады', callback_data='olympiads')
         item_no = types.InlineKeyboardButton(text='Встречи', callback_data='meetings')
         item_address = types.InlineKeyboardButton(text='Другое', callback_data='other')
-        markup_inline.add(item_address)
         markup_inline.add(item_yes, item_no)
+        markup_inline.add(item_address)
         bot.send_message(message.chat.id, "Что вас интересует?", reply_markup=markup_inline)
 
 
