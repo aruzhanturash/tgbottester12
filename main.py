@@ -26,14 +26,16 @@ def start(message):
     username = message.from_user.username
     bot.reply_to(message, f'Hi, {username}')
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+    time = types.KeyboardButton("Распорядок дня")
     schedule = types.KeyboardButton("Расписание")
-    events = types.KeyboardButton("Мероприятия")
-    clubs = types.KeyboardButton("Присоединиться к клубу")
-    diary = types.KeyboardButton("Переход в СУШ")
-    grades = types.KeyboardButton("Калькулятор оценок и анализ")
-    food = types.KeyboardButton("Сегодняшнее меню")
-    markup.add(schedule, events, clubs, diary, grades, food)
-    bot.send_message(message.chat.id, "Подробную информацию можно найти, нажав на кнопки меню", reply_markup=markup)
+    events = types.KeyboardButton("Сегодняшние мероприятия")
+    clubs = types.KeyboardButton("Школьные клубы и кружки")
+    menu = types.KeyboardButton("Сегодняшнее меню")
+    grades = types.KeyboardButton("Калькулятор оценок")
+    sush = types.KeyboardButton("СУШ")
+    instagram = types.KeyboardButton("Instagram аккаунт школы")
+    markup.add(time, schedule, events, menu, clubs, grades, sush, instagram)
+    bot.send_message(message.chat.id, "Подробную информация можно найти, нажав на кнопки меню", reply_markup=markup)
 
     db_object.execute(f"SELECT id FROM users WHERE id = {user_id}")
     result = db_object.fetchone()
@@ -47,69 +49,123 @@ def start(message):
 
 @bot.message_handler(content_types=['text'])
 def get_text_from_user(message):
-    if message.text == "Расписание":
-            markup_inline = types.InlineKeyboardMarkup()
-            item_1 = types.InlineKeyboardButton(text='Уроки', callback_data="subjects")
-            item_2 = types.InlineKeyboardButton(text="Распорядок дня", callback_data="day")
-            markup_inline.add(item_1)
-            markup_inline.add(item_2)
-            bot.send_message(message.chat.id, "Выберите нужную опцию", reply_markup=markup_inline)
-    elif message.text == "Аккаунт в телеграм":
-            markup_inline = types.InlineKeyboardMarkup()
-            item_2 = types.InlineKeyboardButton(text="Нажми", url="https://t.me/joinchat/VPcI0_xVOL_cRD3d")
-            markup_inline.add(item_2)
-            bot.send_message(message.chat.id, "Нажми для перехода в Telegram", reply_markup=markup_inline)
-    elif message.text == "О проекте":
-            markup_inline = types.InlineKeyboardMarkup()
-            a = "1. Проект был создан для распространения информации о существовании кондитерской с пользой для здоровья.\n"
-            b = "2. Проект был создан в 2020 году.\n"
-            reply = a + b
-            bot.send_message(message.chat.id, reply)
-    elif message.text == "Посмотреть галерею":
-            pic = 'https://mykaleidoscope.ru/uploads/posts/2020-01/1579933448_22-p-kremovie-torti-34.jpg'
-            bot.send_photo(message.chat.id, pic)
-    elif message.text == "Посмотреть видео":
-            markup_inline = types.InlineKeyboardMarkup()
-            item_3 = types.InlineKeyboardButton(text="Посмотреть", url="https://youtu.be/-wcXHxotvUg")
-            markup_inline.add(item_3)
-            bot.send_message(message.chat.id, "Нажми для просмотра видео", reply_markup=markup_inline)
+    if message.text == "Распорядок дня":
+            markup_inline = types.InlineKeyboardMarkup(row_width=1)
+            markup = types.ReplyKeyboardMarkup()
+            item_time = types.InlineKeyboardButton(text='Нажми',
+                                                   url='https://drive.google.com/file/d/1SX8Fe4NEzYG7-0ieQ1WJFJkjLIkbaH08/view?usp=sharing')
+            markup_inline.add(item_time)
+            bot.send_message(message.chat.id, "Распорядок дня", reply_markup=markup_inline)
+    elif message.text == "Расписание":
+            markup_inline = types.InlineKeyboardMarkup(row_width=3)
+            button_7 = types.InlineKeyboardButton(text='7', callback_data='7')
+            button_8 = types.InlineKeyboardButton(text='8', callback_data='8')
+            button_9 = types.InlineKeyboardButton(text='9', callback_data='9')
+            button_10 = types.InlineKeyboardButton(text='10', callback_data='10')
+            button_11 = types.InlineKeyboardButton(text='11', callback_data='11')
+            button_12 = types.InlineKeyboardButton(text='12', callback_data='12')
+            markup_inline.add(button_7, button_8, button_9, button_10, button_11, button_12)
+            bot.send_message(message.chat.id, "Выберите класс:", reply_markup=markup_inline)
+    elif message.text == "СУШ":
+            markup_inline = types.InlineKeyboardMarkup(row_width=1)
+            button_2 = types.InlineKeyboardButton(text='СУШ', url='https://sms.hbalm.nis.edu.kz/')
+            markup_inline.add(button_2)
+            bot.send_message(message.chat.id, "Нажми для перехода в СУШ", reply_markup=markup_inline)
+    elif message.text == "Instagram аккаунт школы":
+            markup_inline = types.InlineKeyboardMarkup(row_width=1)
+            button_1 = types.InlineKeyboardButton(text="@nis_chembio_almaty",
+                                                  url='https://instagram.com/nis_chembio_almaty?igshid=NmZiMzY2Mjc=')
+            markup_inline.add(button_1)
+            bot.send_message(message.chat.id, "Нажми для перехода в Инстаграм", reply_markup=markup_inline)
+    elif message.text == "Сегодняшнее меню":
+        markup_reply = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True, )
+        markup = types.ReplyKeyboardMarkup()
+        item_break = types.KeyboardButton('Завтрак')
+        item_lunch = types.KeyboardButton('Обед')
+        item_sup = types.KeyboardButton('Полдник')
+        item_ext = types.KeyboardButton('Выход')
+        markup.row(item_break)
+        markup.row(item_lunch)
+        markup.row(item_sup)
+        markup.row(item_ext)
+        bot.send_message(message.chat.id, "Меню:", reply_markup=markup)
 
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback(call):
-    if call.data == 'subjects':
-        markup_inline = types.InlineKeyboardMarkup()
-        item_3 = types.InlineKeyboardButton(text='7', callback_data="seven")
-        item_4 = types.InlineKeyboardButton(text="8", callback_data="eight")
-        item_5 = types.InlineKeyboardButton(text="9", callback_data="nine")
-        item_6 = types.InlineKeyboardButton(text="10", callback_data="ten")
-        item_7 = types.InlineKeyboardButton(text="11", callback_data="eleven")
-        item_8 = types.InlineKeyboardButton(text="12", callback_data="twelve")
-        markup_inline.add(item_3)
-        markup_inline.add(item_4)
-        markup_inline.add(item_5)
-        markup_inline.add(item_6)
-        markup_inline.add(item_7)
-        markup_inline.add(item_8)
-        bot.send_message(message.chat.id, "Выберите нужную опцию", reply_markup=markup_inline)
-        if call.data == 'seven':
-            markup_inline = types.InlineKeyboardMarkup()
-            item_9 = types.InlineKeyboardButton(text='A', callback_data="first")
-            item_10 = types.InlineKeyboardButton(text="B", callback_data="second")
-            item_11 = types.InlineKeyboardButton(text="C", callback_data="third")
-            item_12 = types.InlineKeyboardButton(text="D", callback_data="fourth")
-            item_13 = types.InlineKeyboardButton(text="E", callback_data="fifth")
-            item_14 = types.InlineKeyboardButton(text="K", callback_data="sixth")
-            item_15 = types.InlineKeyboardButton(text="L", callback_data="seventh")
-            item_16 = types.InlineKeyboardButton(text="M", callback_data="eighth")
-            markup_inline.add(item_9, item_10, item_15, item_16)
-            markup_inline.add(item_11, item_12)
-            markup_inline.add(item_13, item_14)
-            markup_inline.add(item_15, item_16)
-            bot.send_message(message.chat.id, "Выберите нужную опцию", reply_markup=markup_inline)
-            if call.data =='A':
-                photo = open('Снимок.png', 'rb')
-                bot.send_photo(message.chat.id, photo, parse_mode='html')
+    if call.data == '7':
+        markup_inline = types.InlineKeyboardMarkup(row_width=3)
+        button_7a = types.InlineKeyboardButton(text= 'A', callback_data= '7A')
+        button_7b = types.InlineKeyboardButton(text= 'B', callback_data= '7B')
+        button_7c = types.InlineKeyboardButton(text= 'C', callback_data= '7C')
+        button_7d = types.InlineKeyboardButton(text= 'D', callback_data= '7D')
+        button_7e = types.InlineKeyboardButton(text= 'E', callback_data= '7E')
+        button_7k = types.InlineKeyboardButton(text= 'K', callback_data= '7K')
+        button_7l = types.InlineKeyboardButton(text= 'L', callback_data= '7L')
+        button_7m = types.InlineKeyboardButton(text= 'M', callback_data= '7M')
+        markup_inline.add(button_7a, button_7b, button_7c, button_7d, button_7e, button_7k, button_7l, button_7m)
+        bot.send_message(call.message.chat.id, "Выберите литер:", reply_markup=markup_inline)
+    elif call.data == '7A':
+        markup_inline = types.InlineKeyboardMarkup(row_width=3)
+        markup = types.ReplyKeyboardMarkup()
+        item_7a = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/1JpGVTpNKch40xgejd7bVFF7o5FR9R9Gw/view?usp=sharing')
+        markup_inline.add(item_7a)
+        bot.send_message(call.message.chat.id, "7А", reply_markup=markup_inline)
+    elif call.data == '7B':
+     markup_inline = types.InlineKeyboardMarkup(row_width=3)
+     markup = types.ReplyKeyboardMarkup()
+     item_7b = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/1N9GADrAh2mlHRDRq8QOSd9vfhFmOVqRO/view?usp=sharing')
+     markup_inline.add(item_7b)
+     bot.send_message(call.message.chat.id, "7B", reply_markup=markup_inline)
+    elif call.data== '7C':
+     markup_inline = types.InlineKeyboardMarkup(row_width=3)
+     markup = types.ReplyKeyboardMarkup()
+     item_7c = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/1RMJw3A128MoB1nWs5DpmECAX9Sa8k2YJ/view?usp=sharing')
+     markup_inline.add(item_7c)
+     bot.send_message(call.message.chat.id, "7C", reply_markup=markup_inline)
+    elif call.data== '7D':
+     markup_inline = types.InlineKeyboardMarkup(row_width=3)
+     markup = types.ReplyKeyboardMarkup()
+     item_7d = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/1u6nWV1ZwbLNl-czeOrQH-2jWqCUsmlmN/view?usp=sharing')
+     markup_inline.add(item_7d)
+     bot.send_message(call.message.chat.id, "7D", reply_markup=markup_inline)
+    elif call.data== '7E':
+     markup_inline = types.InlineKeyboardMarkup(row_width=3)
+     markup = types.ReplyKeyboardMarkup()
+     item_7e = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/1FlwOcsPO8OSdqVcXgTgOdhD-UYGjeMHH/view?usp=sharing')
+     markup_inline.add(item_7e)
+     bot.send_message(call.message.chat.id, "7E", reply_markup=markup_inline)
+    elif call.data== '7K':
+     markup_inline = types.InlineKeyboardMarkup(row_width=3)
+     markup = types.ReplyKeyboardMarkup()
+     item_7k = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/11hJIgmD3ts7J_GKOm6SqqT6VecOtRaBR/view?usp=sharing')
+     markup_inline.add(item_7k)
+     bot.send_message(call.message.chat.id, "7K", reply_markup=markup_inline)
+    elif call.data== '7L':
+     markup_inline = types.InlineKeyboardMarkup(row_width=3)
+     markup = types.ReplyKeyboardMarkup()
+     item_7l = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/1tI-FRMnCpdPUFWQ4X0XG46kV3b3H60DL/view?usp=sharing')
+     markup_inline.add(item_7l)
+     bot.send_message(call.message.chat.id, "7L", reply_markup=markup_inline)
+    elif call.data== '7M':
+     markup_inline = types.InlineKeyboardMarkup(row_width=3)
+     markup = types.ReplyKeyboardMarkup()
+     item_7m = types.InlineKeyboardButton(text='Расписание', url= 'https://drive.google.com/file/d/1fUHEs_64iLrIZCEOUHoX7z5pQ4IqAjQb/view?usp=sharing')
+     markup_inline.add(item_7m)
+     bot.send_message(call.message.chat.id, "7M", reply_markup=markup_inline)
+
+
+@bot.message_handler(content_types=['text'])
+def check(message):
+    if message.text == 'Завтрак':
+        bot.reply_to(message, 'Рисовая каша')
+    elif message.text == 'Обед':
+        bot.reply_to(message, 'Куриный суп и плов')
+    elif message.text == 'Полдник':
+        bot.reply_to(message, 'Печенье')
+    elif message.text == 'Выход':
+        markup_close = types.ReplyKeyboardRemove()
+        bot.send_message(message.chat.id, "Спасибо за обращение", reply_markup=markup_close)
 
 
 @bot.message_handler(commands=["stats"])
