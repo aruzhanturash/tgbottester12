@@ -6,6 +6,10 @@ from telebot import types
 from config import *
 from flask import Flask, request
 
+a = 0
+g = 0
+c = 0
+
 bot = telebot.TeleBot(BOT_TOKEN)
 server = Flask(__name__)
 logger = telebot.logger
@@ -119,8 +123,8 @@ def get_text_from_user(message):
         markup.row(item_art)
         markup.row(item_project)
         markup.row(item_sport)
-        markup.row(item_ext)
         markup.row(item_contact)
+        markup.row(item_ext)
         bot.send_message(message.chat.id, "Кружки и клубы:", reply_markup=markup)
     elif message.text == 'Олимпиадный резерв':
         pic = 'https://drive.google.com/file/d/1Q9s1F7h_PM3L2eaCIwd92OFt5buxeMmv/view?usp=sharing'
@@ -146,6 +150,43 @@ def get_text_from_user(message):
     elif message. text == 'Выход':
         markup_close = types.ReplyKeyboardRemove()
         bot.send_message(message.chat.id, "Спасибо за обращение", reply_markup=markup_close)
+    elif message.text == 'Калькулятор оценок':
+        markup_reply = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True, )
+        markup = types.ReplyKeyboardMarkup()
+        item_table = types.KeyboardButton('Проследить прогресс')
+        item_count = types.KeyboardButton('Посчитать оценку')
+        item_exti = types.KeyboardButton('Выход')
+        markup.row(item_table)
+        markup.row(item_count)
+        markup.row(item_exti)
+        bot.send_message(message.chat.id, "Калькулятор оценок", reply_markup=markup)
+    elif message.text == 'Посчитать оценку':
+        bot.reply_to(message, 'Введите процент по определенному предмету за СОР')
+        global a
+        a = 0
+        a = int(message.text)
+        global g
+        g = 85-a
+        global c
+        c = (g ^ 85)/a
+        bot.send_message(message.chat.id, "Сколько баллов в СОЧ?")
+        b = int(message.text)
+        markup_reply = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True, )
+        markup = types.ReplyKeyboardMarkup()
+        item_5g = types.KeyboardButton('Сколько нужно до 5')
+        item_4g = types.KeyboardButton('Сколько нужно до 4')
+        item_3g = types.KeyboardButton('Сколько нужно до 3')
+        markup.row(item_5g)
+        markup.row(item_4g)
+        markup.row(item_3g)
+        bot.send_message(message.chat.id, "Выберите нужную оценку", reply_markup=markup)
+    elif message.text == 'Сколько нужно до 5':
+        question = str(c)
+        bot.send_message(message.chat.id, text=question)
+
+
+
+
 
 
 @bot.callback_query_handler(func=lambda call: True)
