@@ -183,6 +183,14 @@ def get_text_from_user(message):
     elif message.text == 'Сколько нужно до 5':
         question = str(c)
         bot.send_message(message.chat.id, text=question)
+    elif message.text == 'Сколько нужно до 4':
+        global s
+        s = 65-a
+        global e
+        e = (s ^ b)/a
+        term = str(e)
+        bot.send_message(message.chat.id, text=term)
+
 
 
 
