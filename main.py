@@ -106,6 +106,46 @@ def get_text_from_user(message):
         markup_inline.add(item_yes, item_no)
         markup_inline.add(item_address)
         bot.send_message(message.chat.id, "Что вас интересует?", reply_markup=markup_inline)
+    elif message.text == 'Школьные клубы и кружки':
+        markup_reply = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True, )
+        markup = types.ReplyKeyboardMarkup()
+        item_reserve = types.KeyboardButton('Олимпиадный резерв')
+        item_art = types.KeyboardButton('Искусство')
+        item_project = types.KeyboardButton('Научные проекты')
+        item_sport = types.KeyboardButton('Спорт')
+        item_contact = types.KeyboardButton('Связаться с координатором')
+        item_ext = types.KeyboardButton('Выход')
+        markup.row(item_reserve)
+        markup.row(item_art)
+        markup.row(item_project)
+        markup.row(item_sport)
+        markup.row(item_ext)
+        markup.row(item_contact)
+        bot.send_message(message.chat.id, "Кружки и клубы:", reply_markup=markup)
+    elif message.text == 'Олимпиадный резерв':
+        pic = 'https://drive.google.com/file/d/1Q9s1F7h_PM3L2eaCIwd92OFt5buxeMmv/view?usp=sharing'
+        bot.send_photo(message.chat.id, pic)
+    elif message.text == 'Искусство':
+        bot.reply_to(message, 'Отправляйте свои работы и запросы по этому адресу: aruzhanturash17@gmail.com')
+    elif message.text == 'Научные проекты':
+        markup_inline = types.InlineKeyboardMarkup(row_width=3)
+        markup = types.ReplyKeyboardMarkup()
+        item_sci = types.InlineKeyboardButton(text='Вступить',
+                                             url='https://www.instagram.com/taza_su2022/?hl=ru')
+        markup_inline.add(item_sci)
+        bot.reply_to(message, 'Заходите на страничку!')
+    elif message.text == 'Спорт':
+        markup_inline = types.InlineKeyboardMarkup(row_width=3)
+        markup = types.ReplyKeyboardMarkup()
+        item_tg = types.InlineKeyboardButton(text='Вступить',
+                                              url='https://t.me/joinchat/Fyph8BgC5HYLtegB-X_B8g')
+        markup_inline.add(item_tg)
+        bot.reply_to(message,'Вступить в чат')
+    elif message.text == 'Связаться с координатором':
+        bot.reply_to(message, 'Позвоните по этому номеру: +7 701 715 79 69')
+    elif message. text == 'Выход':
+        markup_close = types.ReplyKeyboardRemove()
+        bot.send_message(message.chat.id, "Спасибо за обращение", reply_markup=markup_close)
 
 
 @bot.callback_query_handler(func=lambda call: True)
