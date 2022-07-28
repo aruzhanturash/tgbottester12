@@ -163,13 +163,13 @@ def get_text_from_user(message):
     elif message.text == 'Посчитать оценку':
         bot.reply_to(message, 'Введите процент по определенному предмету за СОР')
         global a
-        a = 0
         a = int(message.text)
         global g
         g = 85-a
         global c
-        c = (g ^ 85)/a
+        c = (g ^ b)/a
         bot.send_message(message.chat.id, "Сколько баллов в СОЧ?")
+        global b
         b = int(message.text)
         markup_reply = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True, )
         markup = types.ReplyKeyboardMarkup()
