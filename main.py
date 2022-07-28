@@ -160,41 +160,6 @@ def get_text_from_user(message):
         markup.row(item_count)
         markup.row(item_exti)
         bot.send_message(message.chat.id, "Калькулятор оценок", reply_markup=markup)
-    elif message.text == 'Посчитать оценку':
-        bot.reply_to(message, 'Введите процент по определенному предмету за СОР')
-        global a
-        a = int(message.text)
-        global g
-        g = 85-a
-        global c
-        c = (g ^ b)/a
-        bot.send_message(message.chat.id, "Сколько баллов в СОЧ?")
-        global b
-        b = int(message.text)
-        markup_reply = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True, )
-        markup = types.ReplyKeyboardMarkup()
-        item_5g = types.KeyboardButton('Сколько нужно до 5')
-        item_4g = types.KeyboardButton('Сколько нужно до 4')
-        item_3g = types.KeyboardButton('Сколько нужно до 3')
-        markup.row(item_5g)
-        markup.row(item_4g)
-        markup.row(item_3g)
-        bot.send_message(message.chat.id, "Выберите нужную оценку", reply_markup=markup)
-    elif message.text == 'Сколько нужно до 5':
-        question = str(c)
-        bot.send_message(message.chat.id, text=question)
-    elif message.text == 'Сколько нужно до 4':
-        global s
-        s = 65-a
-        global e
-        e = (s ^ b)/a
-        term = str(e)
-        bot.send_message(message.chat.id, text=term)
-
-
-
-
-
 
 
 @bot.callback_query_handler(func=lambda call: True)
