@@ -137,7 +137,7 @@ def get_text_from_user(message):
         item_sci = types.InlineKeyboardButton(text='Вступить',
                                              url='https://www.instagram.com/taza_su2022/?hl=ru')
         markup_inline.add(item_sci)
-        bot.reply_to(message, 'Заходите на страничку!', reply_markup=markup_inline )
+        bot.reply_to(message, 'Заходите на страничку', reply_markup=markup_inline )
     elif message.text == 'Спорт':
         markup_inline = types.InlineKeyboardMarkup(row_width=3)
         markup = types.ReplyKeyboardMarkup()
