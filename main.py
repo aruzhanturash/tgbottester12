@@ -133,14 +133,14 @@ def get_text_from_user(message):
         item_sci = types.InlineKeyboardButton(text='Вступить',
                                              url='https://www.instagram.com/taza_su2022/?hl=ru')
         markup_inline.add(item_sci)
-        bot.reply_to(message, 'Заходите на страничку!')
+        bot.reply_to(message, 'Заходите на страничку!', reply_markup=markup_inline )
     elif message.text == 'Спорт':
         markup_inline = types.InlineKeyboardMarkup(row_width=3)
         markup = types.ReplyKeyboardMarkup()
         item_tg = types.InlineKeyboardButton(text='Вступить',
                                               url='https://t.me/joinchat/Fyph8BgC5HYLtegB-X_B8g')
         markup_inline.add(item_tg)
-        bot.reply_to(message,'Вступить в чат')
+        bot.reply_to(message,'Вступить в чат', reply_markup=markup_inline)
     elif message.text == 'Связаться с координатором':
         bot.reply_to(message, 'Позвоните по этому номеру: +7 701 715 79 69')
     elif message. text == 'Выход':
