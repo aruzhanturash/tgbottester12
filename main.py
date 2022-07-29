@@ -159,9 +159,6 @@ def get_text_from_user(message):
         bot.send_message(message.chat.id, "Калькулятор оценок", reply_markup=markup)
     elif message.text == 'Посчитать оценку':
         bot.send_message(message.chat.id, "Введите команду calc")
-    elif message.text == 'calc':
-        bot.send_message(message, "Введите процент по СОР:")
-        bot.register_next_step_handler(message, reg_x)
     elif message.text == '5':
         a = 85-x
         b = (y*a)/50
@@ -169,6 +166,10 @@ def get_text_from_user(message):
         bot. send_message(message, text=question)
 
 
+@bot.message_handler(commands=['calc'])
+def start(message):
+    bot.send_message(message, "Введите процент по СОР:")
+    bot.register_next_step_handler(message, reg_x)
 
 
 def reg_x(message):
