@@ -5,8 +5,7 @@ import psycopg2
 from telebot import types
 from config import *
 from flask import Flask, request
-import matplotlib.pyplot as plt
-import numpy as np
+
 
 x = 0
 y = 0
@@ -181,15 +180,9 @@ def get_text_from_user(message):
         bot.send_message(message.chat.id, text=wer)
     elif message.text == 'Проследить прогресс':
         bot.send_message(message.chat.id, "Введите команду /draw")
-    elif message.text == '/draw':
-        bot.register_next_step_handler(message, histogram)
 
-def histogram(data, n_bins, cumulative=False, x_label="", y_label="", title=""):
-            _, ax = plt.subplots()
-            ax.hist(data, n_bins=n_bins, cumulative=cumulative, color='#539caf')
-            ax.set_ylabel(y_label)
-            ax.set_xlabel(x_label)
-            ax.set_title(title)
+
+
 
 def reg_x(message):
     global x
