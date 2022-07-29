@@ -166,7 +166,7 @@ def get_text_from_user(message):
         a = 85-x
         b = (y*a)/50
         question = str(b)
-        bot. send_message(message, text=question)
+        bot.send_message(message.chat.id, text=question)
 
 
 def reg_x(message):
