@@ -6,9 +6,8 @@ from telebot import types
 from config import *
 from flask import Flask, request
 
-a = 0
-g = 0
-c = 0
+x = 0
+y = 0
 
 bot = telebot.TeleBot(BOT_TOKEN)
 server = Flask(__name__)
@@ -155,11 +154,58 @@ def get_text_from_user(message):
         markup = types.ReplyKeyboardMarkup()
         item_table = types.KeyboardButton('Проследить прогресс')
         item_count = types.KeyboardButton('Посчитать оценку')
-        item_exti = types.KeyboardButton('Выход')
         markup.row(item_table)
         markup.row(item_count)
-        markup.row(item_exti)
         bot.send_message(message.chat.id, "Калькулятор оценок", reply_markup=markup)
+    elif message.text == 'Проследить прогресс':
+        bot.send_message(message.chat.id, "Введите команду /calc")
+    elif message.text == '/calc':
+        bot.send_message(message, "Введите процент по СОР:")
+        bot.register_next_step_handler(message, reg_x)
+    elif message.text == '5':
+        a = 85-x
+        b = (y*a)/50
+        question = str(b)
+        bot. send_message(message, text=question)
+
+
+
+
+def reg_x(message):
+    global x
+    x = ''
+    try:
+        x = int(message.text)
+    except Exception:
+        bot.send_message(message.chat.id, "Введите только число")
+    if x == 0:
+        bot.register_next_step_handler(message, reg_x)
+    else:
+        bot.send_message(message.chat.id, "Сколько баллов в СОЧ?")
+        bot.register_next_step_handler(message, reg_y)
+
+
+def reg_y(message):
+    global y
+    y = ''
+    try:
+        y = int(message.text)
+    except Exception:
+        bot.send_message(message.chat.id, "Введите только число")
+    if y == 0:
+        bot.register_next_step_handler(message, reg_y)
+    else:
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+        item_5 = types.KeyboardButton("5")
+        item_4 = types.KeyboardButton('4')
+        item_3 = types.KeyboardButton('3')
+        markup.add(item_5, item_4, item_3)
+        bot.send_message(message.chat.id, text='Выберите нужную оценку', reply_markup=markup)
+
+
+
+
+
 
 
 @bot.callback_query_handler(func=lambda call: True)
