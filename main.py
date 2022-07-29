@@ -167,6 +167,16 @@ def get_text_from_user(message):
         b = (y*a)/50
         question = ' Вам нужно набрать как минимум ' + str(b)
         bot.send_message(message.chat.id, text=question)
+    elif message.text == '4':
+        q = 65-x
+        w = (y*q)/50
+        wet = ' Вам нужно набрать как минимум ' + str(w)
+        bot.send_message(message.chat.id, text=wet)
+    elif message.text == '3':
+        e = 51-x
+        r = (y*e)/50
+        wer = ' Вам нужно набрать как минимум ' + str(r)
+        bot.send_message(message.chat.id, text=wer)
 
 
 def reg_x(message):
