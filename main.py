@@ -51,42 +51,6 @@ def start(message):
 
     update_messages_count(user_id)
 
-def barplot(x_data, y_data, error_data, x_label="", y_label="", title=""):
-    _, ax = plt.subplots()
-    ax.bar(x_data, y_data, color = '#539caf', align = 'center')
-    ax.errorbar(x_data, y_data, yerr = error_data, color = '#297083', ls = 'none', lw = 2, capthick = 2)
-    ax.set_ylabel(y_label)
-    ax.set_xlabel(x_label)
-    ax.set_title(title)
-
-
-
-def stackedbarplot(x_data, y_data_list, colors, y_data_names="", x_label="", y_label="", title=""):
-    _, ax = plt.subplots()
-    for i in range(0, len(y_data_list)):
-        if i == 0:
-            ax.bar(x_data, y_data_list[i], color = colors[i], align = 'center', label = y_data_names[i])
-        else:
-            ax.bar(x_data, y_data_list[i], color = colors[i], bottom = y_data_list[i - 1], align = 'center', label = y_data_names[i])
-    ax.set_ylabel(y_label)
-    ax.set_xlabel(x_label)
-    ax.set_title(title)
-    ax.legend(loc = 'upper right')
-
-
-
-def groupedbarplot(x_data, y_data_list, colors, y_data_names="", x_label="", y_label="", title=""):
-    _, ax = plt.subplots()
-    total_width = 0.8
-    ind_width = total_width / len(y_data_list)
-    alteration = np.arange(-(total_width/2), total_width/2, ind_width)
-    for i in range(0, len(y_data_list)):
-        ax.bar(x_data + alteration[i], y_data_list[i], color = colors[i], label = y_data_names[i], width = ind_width)
-    ax.set_ylabel(y_label)
-    ax.set_xlabel(x_label)
-    ax.set_title(title)
-    ax.legend(loc = 'upper right')
-
 
 @bot.message_handler(content_types=['text'])
 def get_text_from_user(message):
@@ -220,6 +184,41 @@ def get_text_from_user(message):
     elif message.text == '/draw':
         bot.register_next_step_handler(message, barplot, groupedbarplot, stackedbarplot)
 
+def barplot(x_data, y_data, error_data, x_label="", y_label="", title=""):
+    _, ax = plt.subplots()
+    ax.bar(x_data, y_data, color = '#539caf', align = 'center')
+    ax.errorbar(x_data, y_data, yerr = error_data, color = '#297083', ls = 'none', lw = 2, capthick = 2)
+    ax.set_ylabel(y_label)
+    ax.set_xlabel(x_label)
+    ax.set_title(title)
+
+
+
+def stackedbarplot(x_data, y_data_list, colors, y_data_names="", x_label="", y_label="", title=""):
+    _, ax = plt.subplots()
+    for i in range(0, len(y_data_list)):
+        if i == 0:
+            ax.bar(x_data, y_data_list[i], color = colors[i], align = 'center', label = y_data_names[i])
+        else:
+            ax.bar(x_data, y_data_list[i], color = colors[i], bottom = y_data_list[i - 1], align = 'center', label = y_data_names[i])
+    ax.set_ylabel(y_label)
+    ax.set_xlabel(x_label)
+    ax.set_title(title)
+    ax.legend(loc = 'upper right')
+
+
+
+def groupedbarplot(x_data, y_data_list, colors, y_data_names="", x_label="", y_label="", title=""):
+    _, ax = plt.subplots()
+    total_width = 0.8
+    ind_width = total_width / len(y_data_list)
+    alteration = np.arange(-(total_width/2), total_width/2, ind_width)
+    for i in range(0, len(y_data_list)):
+        ax.bar(x_data + alteration[i], y_data_list[i], color = colors[i], label = y_data_names[i], width = ind_width)
+    ax.set_ylabel(y_label)
+    ax.set_xlabel(x_label)
+    ax.set_title(title)
+    ax.legend(loc = 'upper right')
 
 def reg_x(message):
     global x
