@@ -160,7 +160,7 @@ def get_text_from_user(message):
     elif message.text == 'Посчитать оценку':
         bot.send_message(message.chat.id, "Введите команду /calc")
     elif message.text == '/calc':
-        bot.send_message(message, "Введите процент по СОР:")
+        bot.send_message(message.chat.id, "Введите процент по СОР:")
         bot.register_next_step_handler(message, reg_x)
     elif message.text == '5':
         a = 85-x
