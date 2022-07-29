@@ -5,6 +5,8 @@ import psycopg2
 from telebot import types
 from config import *
 from flask import Flask, request
+import matplotlib.pyplot as plt
+import numpy as np
 
 x = 0
 y = 0
@@ -48,6 +50,42 @@ def start(message):
         db_connection.commit()
 
     update_messages_count(user_id)
+
+def barplot(x_data, y_data, error_data, x_label="", y_label="", title=""):
+    _, ax = plt.subplots()
+    ax.bar(x_data, y_data, color = '#539caf', align = 'center')
+    ax.errorbar(x_data, y_data, yerr = error_data, color = '#297083', ls = 'none', lw = 2, capthick = 2)
+    ax.set_ylabel(y_label)
+    ax.set_xlabel(x_label)
+    ax.set_title(title)
+
+
+
+def stackedbarplot(x_data, y_data_list, colors, y_data_names="", x_label="", y_label="", title=""):
+    _, ax = plt.subplots()
+    for i in range(0, len(y_data_list)):
+        if i == 0:
+            ax.bar(x_data, y_data_list[i], color = colors[i], align = 'center', label = y_data_names[i])
+        else:
+            ax.bar(x_data, y_data_list[i], color = colors[i], bottom = y_data_list[i - 1], align = 'center', label = y_data_names[i])
+    ax.set_ylabel(y_label)
+    ax.set_xlabel(x_label)
+    ax.set_title(title)
+    ax.legend(loc = 'upper right')
+
+
+
+def groupedbarplot(x_data, y_data_list, colors, y_data_names="", x_label="", y_label="", title=""):
+    _, ax = plt.subplots()
+    total_width = 0.8
+    ind_width = total_width / len(y_data_list)
+    alteration = np.arange(-(total_width/2), total_width/2, ind_width)
+    for i in range(0, len(y_data_list)):
+        ax.bar(x_data + alteration[i], y_data_list[i], color = colors[i], label = y_data_names[i], width = ind_width)
+    ax.set_ylabel(y_label)
+    ax.set_xlabel(x_label)
+    ax.set_title(title)
+    ax.legend(loc = 'upper right')
 
 
 @bot.message_handler(content_types=['text'])
@@ -177,6 +215,10 @@ def get_text_from_user(message):
         r = (y*e)/50
         wer = ' Вам нужно набрать как минимум ' + str(r)
         bot.send_message(message.chat.id, text=wer)
+    elif message.text == 'Проследить прогресс':
+        bot.send_message(message.chat.id, "Введите команду /draw")
+    elif message.text == '/draw':
+        bot.register_next_step_handler(message, barplot, groupedbarplot, stackedbarplot)
 
 
 def reg_x(message):
@@ -209,11 +251,6 @@ def reg_y(message):
         item_3 = types.KeyboardButton('3')
         markup.add(item_5, item_4, item_3)
         bot.send_message(message.chat.id, text='Выберите нужную оценку', reply_markup=markup)
-
-
-
-
-
 
 
 @bot.callback_query_handler(func=lambda call: True)
