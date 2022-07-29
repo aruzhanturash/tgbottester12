@@ -173,7 +173,7 @@ def reg_x(message):
     global x
     x = ''
     try:
-        x = int(message.text)
+        x = float(message.text)
     except Exception:
         bot.send_message(message.chat.id, "Введите только число")
     if x == 0:
@@ -187,7 +187,7 @@ def reg_y(message):
     global y
     y = ''
     try:
-        y = int(message.text)
+        y = float(message.text)
     except Exception:
         bot.send_message(message.chat.id, "Введите только число")
     if y == 0:
