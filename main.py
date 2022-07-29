@@ -157,9 +157,9 @@ def get_text_from_user(message):
         markup.row(item_table)
         markup.row(item_count)
         bot.send_message(message.chat.id, "Калькулятор оценок", reply_markup=markup)
-    elif message.text == 'Проследить прогресс':
-        bot.send_message(message.chat.id, "Введите команду /calc")
-    elif message.text == '/calc':
+    elif message.text == 'Посчитать оценку':
+        bot.send_message(message.chat.id, "Введите команду calc")
+    elif message.text == 'calc':
         bot.send_message(message, "Введите процент по СОР:")
         bot.register_next_step_handler(message, reg_x)
     elif message.text == '5':
