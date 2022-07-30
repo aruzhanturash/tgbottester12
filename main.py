@@ -59,7 +59,6 @@ def get_text_from_user(message):
         img = Image.open(image_path)
         width, height = int(img.size)
         bot.send_message(message.chat.id, width, height)
-        img.show()
     elif message.text == "Расписание":
             markup_inline = types.InlineKeyboardMarkup(row_width=3)
             button_7 = types.InlineKeyboardButton(text='7', callback_data='7')
