@@ -161,7 +161,7 @@ def get_text_from_user(message):
         bot.register_next_step_handler(message, reg_x)
     elif message.text == '5':
         try:
-            x >= 35
+            x < 35
         except Exception:
             bot.send_message(message.chat.id, "Упс! Похоже стоит выбрать другую оценку")
         a = 85-x
@@ -198,7 +198,7 @@ def reg_x(message):
     if x == 0:
         bot.register_next_step_handler(message, reg_x)
     elif x > 50:
-        bot.send_message(message.chat.id, "Проверьте корректность введенных данных")
+        bot.send_message(message.chat.id, "Проверьте корректность введенных данных и нажмите на /calc")
     else:
         bot.send_message(message.chat.id, "Сколько баллов в СОЧ?")
         bot.register_next_step_handler(message, reg_y)
@@ -208,7 +208,7 @@ def reg_y(message):
     global y
     y = ''
     try:
-        y = float(message.text) and y <= 50
+        y = float(message.text)
     except Exception:
         bot.send_message(message.chat.id, "Проверьте корректность введенных данных")
     if y == 0:
