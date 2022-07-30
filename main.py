@@ -54,7 +54,7 @@ def start(message):
 @bot.message_handler(content_types=['text'])
 def get_text_from_user(message):
     if message.text == "Распорядок дня":
-        with open("https://drive.google.com/file/d/1RflTYE20booDE_vMMVSX5MaYlcrMYKDa/view?usp=sharing", "rb") as file:
+        with open("schedule.jpg", "rb") as file:
             bot.send_document(123456789, document=file)
     elif message.text == "Расписание":
             markup_inline = types.InlineKeyboardMarkup(row_width=3)
