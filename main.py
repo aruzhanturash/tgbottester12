@@ -57,8 +57,8 @@ def get_text_from_user(message):
     if message.text == "Распорядок дня":
         image_path = 'https://drive.google.com/file/d/1RflTYE20booDE_vMMVSX5MaYlcrMYKDa/view?usp=sharing'
         img = Image.open(image_path)
-        width, height = img.size
-        print(width, height)
+        width, height = int(img.size)
+        bot.send_message(message.chat.id, width, height)
         img.show()
     elif message.text == "Расписание":
             markup_inline = types.InlineKeyboardMarkup(row_width=3)
