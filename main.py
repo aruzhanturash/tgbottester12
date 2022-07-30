@@ -177,12 +177,13 @@ def get_text_from_user(message):
         else:
             q = 65-x
             w = (y*q)/50
-            wet = ' Вам нужно набрать как минимум ' + str(w) + ',' + 'чтобы начать занова нажмите /start'
+            wet = ' Вам нужно набрать как минимум ' + str(w)
             bot.send_message(message.chat.id, text=wet)
+            bot.send_message(message.chat.id.text, 'Чтобы начать занова нажмите /start')
     elif message.text == '3':
         e = 51-x
         r = (y*e)/50
-        wer = ' Вам нужно набрать как минимум ' + str(r) + ',' + 'чтобы начать занова нажмите /start'
+        wer = ' Вам нужно набрать как минимум ' + str(r) + ' , ' + 'чтобы начать занова нажмите /start'
         bot.send_message(message.chat.id, text=wer)
     elif message.text == 'Проследить прогресс':
         bot.send_message(message.chat.id, "Введите команду /draw")
