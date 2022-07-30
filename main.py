@@ -5,7 +5,7 @@ import psycopg2
 from telebot import types
 from config import *
 from flask import Flask, request
-from PIL import Image
+
 
 
 x = 0
@@ -55,8 +55,7 @@ def start(message):
 @bot.message_handler(content_types=['text'])
 def get_text_from_user(message):
     if message.text == "Распорядок дня":
-        image = 'https://drive.google.com/file/d/1RflTYE20booDE_vMMVSX5MaYlcrMYKDa/view?usp=sharing'
-        bot.send_photo(message.chat.id, image, width = 739, height = 828)
+        bot.send_photo(message.chat.id, 'https://drive.google.com/file/d/1RflTYE20booDE_vMMVSX5MaYlcrMYKDa/view?usp=sharing')
     elif message.text == "Расписание":
             markup_inline = types.InlineKeyboardMarkup(row_width=3)
             button_7 = types.InlineKeyboardButton(text='7', callback_data='7')
@@ -183,8 +182,6 @@ def get_text_from_user(message):
         bot.send_message(message.chat.id, text=wer)
     elif message.text == 'Проследить прогресс':
         bot.send_message(message.chat.id, "Введите команду /draw")
-
-
 
 
 
