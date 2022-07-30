@@ -160,14 +160,13 @@ def get_text_from_user(message):
         bot.send_message(message.chat.id, "Введите процент по СОР:")
         bot.register_next_step_handler(message, reg_x)
     elif message.text == '5':
-        try:
-            x < 35
-        except Exception:
+        if x < 35:
             bot.send_message(message.chat.id, "Упс! Похоже стоит выбрать другую оценку")
-        a = 85-x
-        b = (y*a)/50
-        question = ' Вам нужно набрать как минимум ' + str(b)
-        bot.send_message(message.chat.id, text=question)
+        else:
+            a = 85-x
+            b = (y*a)/50
+            question = ' Вам нужно набрать как минимум ' + str(b)
+            bot.send_message(message.chat.id, text=question)
     elif message.text == '4':
         try:
             x >= 15
