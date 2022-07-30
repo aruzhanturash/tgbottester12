@@ -7,7 +7,6 @@ from config import *
 from flask import Flask, request
 
 
-
 x = 0
 y = 0
 
@@ -55,7 +54,8 @@ def start(message):
 @bot.message_handler(content_types=['text'])
 def get_text_from_user(message):
     if message.text == "Распорядок дня":
-        bot.send_photo(message.chat.id, photo = open('C:\Users\aruzh\Downloads','rb'))
+        photo = 'https://drive.google.com/file/d/1RflTYE20booDE_vMMVSX5MaYlcrMYKDa/view?usp=sharing'
+        bot.send_photo(message.chat.id, photo, width=739, height=828)
     elif message.text == "Расписание":
             markup_inline = types.InlineKeyboardMarkup(row_width=3)
             button_7 = types.InlineKeyboardButton(text='7', callback_data='7')
