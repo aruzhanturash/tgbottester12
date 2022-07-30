@@ -54,12 +54,8 @@ def start(message):
 @bot.message_handler(content_types=['text'])
 def get_text_from_user(message):
     if message.text == "Распорядок дня":
-            markup_inline = types.InlineKeyboardMarkup(row_width=1)
-            markup = types.ReplyKeyboardMarkup()
-            item_time = types.InlineKeyboardButton(text='Нажми',
-                                                   url='https://drive.google.com/file/d/1SX8Fe4NEzYG7-0ieQ1WJFJkjLIkbaH08/view?usp=sharing')
-            markup_inline.add(item_time)
-            bot.send_message(message.chat.id, "Распорядок дня", reply_markup=markup_inline)
+        pic = 'https://drive.google.com/file/d/1SX8Fe4NEzYG7-0ieQ1WJFJkjLIkbaH08/view?usp=sharing'
+        bot.send_photo(message.chat.id, pic)
     elif message.text == "Расписание":
             markup_inline = types.InlineKeyboardMarkup(row_width=3)
             button_7 = types.InlineKeyboardButton(text='7', callback_data='7')
@@ -164,11 +160,19 @@ def get_text_from_user(message):
         bot.send_message(message.chat.id, "Введите процент по СОР:")
         bot.register_next_step_handler(message, reg_x)
     elif message.text == '5':
+        try:
+            x >= 35
+        except Exception:
+            bot.send_message(message.chat.id, "Упс! Похоже стоит выбрать другую оценку")
         a = 85-x
         b = (y*a)/50
         question = ' Вам нужно набрать как минимум ' + str(b)
         bot.send_message(message.chat.id, text=question)
     elif message.text == '4':
+        try:
+            x >= 15
+        except Exception:
+            bot.send_message(message.chat.id, "Упс! Похоже стоит выбрать другую оценку")
         q = 65-x
         w = (y*q)/50
         wet = ' Вам нужно набрать как минимум ' + str(w)
@@ -188,9 +192,9 @@ def reg_x(message):
     global x
     x = ''
     try:
-        x = float(message.text)
+        x = float(message.text) and x <= 50
     except Exception:
-        bot.send_message(message.chat.id, "Введите только число")
+        bot.send_message(message.chat.id, "Проверьте корректность введенных данных")
     if x == 0:
         bot.register_next_step_handler(message, reg_x)
     else:
@@ -202,9 +206,9 @@ def reg_y(message):
     global y
     y = ''
     try:
-        y = float(message.text)
+        y = float(message.text) and y <= 50
     except Exception:
-        bot.send_message(message.chat.id, "Введите только число")
+        bot.send_message(message.chat.id, "Проверьте корректность введенных данных")
     if y == 0:
         bot.register_next_step_handler(message, reg_y)
     else:
