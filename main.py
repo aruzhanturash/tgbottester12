@@ -197,7 +197,7 @@ def reg_x(message):
         bot.send_message(message.chat.id, "Проверьте корректность введенных данных")
     if x == 0:
         bot.register_next_step_handler(message, reg_x)
-    elif x <= 50:
+    elif x > 50:
         bot.send_message(message.chat.id, "Проверьте корректность введенных данных")
     else:
         bot.send_message(message.chat.id, "Сколько баллов в СОЧ?")
