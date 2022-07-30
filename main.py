@@ -56,9 +56,7 @@ def start(message):
 def get_text_from_user(message):
     if message.text == "Распорядок дня":
         image = 'https://drive.google.com/file/d/1RflTYE20booDE_vMMVSX5MaYlcrMYKDa/view?usp=sharing'
-        img = Image.open(image)
-        width, height = img.size
-        bot.send_message(message.chat.id, image)
+        bot.send_photo(message.chat.id, image, width = 739, height = 828)
     elif message.text == "Расписание":
             markup_inline = types.InlineKeyboardMarkup(row_width=3)
             button_7 = types.InlineKeyboardButton(text='7', callback_data='7')
