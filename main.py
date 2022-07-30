@@ -169,7 +169,7 @@ def get_text_from_user(message):
         else:
             a = 85-x
             b = (y*a)/50
-            question = ' Вам нужно набрать как минимум ' + str(b)
+            question = ' Вам нужно набрать как минимум ' + str(b) + ' , ' + 'чтобы начать занова нажмите /start'
             bot.send_message(message.chat.id, text=question)
     elif message.text == '4':
         if x < 15:
