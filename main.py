@@ -55,7 +55,7 @@ def start(message):
 @bot.message_handler(content_types=['text'])
 def get_text_from_user(message):
     if message.text == "Распорядок дня":
-        p = open('https://drive.google.com/file/d/1RflTYE20booDE_vMMVSX5MaYlcrMYKDa/view?usp=sharing', 'rb')
+        p = open('schedule.png', 'rb')
         bot.send_photo(message.chat.id, p)
     elif message.text == "Расписание":
             markup_inline = types.InlineKeyboardMarkup(row_width=3)
