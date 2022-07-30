@@ -192,11 +192,13 @@ def reg_x(message):
     global x
     x = ''
     try:
-        x = float(message.text) and x <= 50
+        x = float(message.text)
     except Exception:
-        bot.send_message(message.chat.id, "Проверьте корректность введенных данных", reg_x)
+        bot.send_message(message.chat.id, "Проверьте корректность введенных данных")
     if x == 0:
         bot.register_next_step_handler(message, reg_x)
+    elif x <= 50:
+        bot.send_message(message.chat.id, "Проверьте корректность введенных данных")
     else:
         bot.send_message(message.chat.id, "Сколько баллов в СОЧ?")
         bot.register_next_step_handler(message, reg_y)
