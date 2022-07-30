@@ -54,7 +54,7 @@ def start(message):
 @bot.message_handler(content_types=['text'])
 def get_text_from_user(message):
     if message.text == "Распорядок дня":
-        pic = 'https://drive.google.com/file/d/1SX8Fe4NEzYG7-0ieQ1WJFJkjLIkbaH08/view?usp=sharing'
+        pic = 'https://drive.google.com/file/d/1RflTYE20booDE_vMMVSX5MaYlcrMYKDa/view?usp=sharing'
         bot.send_photo(message.chat.id, pic)
     elif message.text == "Расписание":
             markup_inline = types.InlineKeyboardMarkup(row_width=3)
@@ -182,6 +182,7 @@ def get_text_from_user(message):
         bot.send_message(message.chat.id, text=wer)
     elif message.text == 'Проследить прогресс':
         bot.send_message(message.chat.id, "Введите команду /draw")
+
 
 
 
