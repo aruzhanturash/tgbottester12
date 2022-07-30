@@ -55,10 +55,10 @@ def start(message):
 @bot.message_handler(content_types=['text'])
 def get_text_from_user(message):
     if message.text == "Распорядок дня":
-        image_path = 'https://drive.google.com/file/d/1RflTYE20booDE_vMMVSX5MaYlcrMYKDa/view?usp=sharing'
-        img = Image.open(image_path)
-        width, height = int(img.size)
-        bot.send_message(message.chat.id, width, height)
+        image = 'https://drive.google.com/file/d/1RflTYE20booDE_vMMVSX5MaYlcrMYKDa/view?usp=sharing'
+        img = Image.open(image)
+        width, height = img.size
+        bot.send_message(message.chat.id, image)
     elif message.text == "Расписание":
             markup_inline = types.InlineKeyboardMarkup(row_width=3)
             button_7 = types.InlineKeyboardButton(text='7', callback_data='7')
