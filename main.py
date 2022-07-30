@@ -149,7 +149,7 @@ def get_text_from_user(message):
         bot.reply_to(message, 'Позвоните по этому номеру: +7 701 715 79 69')
     elif message. text == 'Выход':
         markup_close = types.ReplyKeyboardRemove()
-        bot.send_message(message.chat.id, "Спасибо за обращение, чтобы начать занова нажмите /start", reply_markup=markup_close)
+        bot.send_message(message.chat.id, "Спасибо за обращение, чтобы начать заново нажмите /start", reply_markup=markup_close)
     elif message.text == 'Калькулятор оценок':
         markup_reply = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True, )
         markup = types.ReplyKeyboardMarkup()
@@ -169,7 +169,7 @@ def get_text_from_user(message):
         else:
             a = 85-x
             b = (y*a)/50
-            question = ' Вам нужно набрать как минимум ' + str(b) + ' , ' + 'чтобы начать занова нажмите /start'
+            question = ' Вам нужно набрать как минимум ' + str(b) + ' , ' + 'чтобы начать заново нажмите /start'
             bot.send_message(message.chat.id, text=question)
     elif message.text == '4':
         if x < 15:
@@ -177,12 +177,12 @@ def get_text_from_user(message):
         else:
             q = 65-x
             w = (y*q)/50
-            wet = ' Вам нужно набрать как минимум ' + str(w) + ' , ' + 'чтобы начать занова нажмите /start'
+            wet = ' Вам нужно набрать как минимум ' + str(w) + ' , ' + 'чтобы начать заново нажмите /start'
             bot.send_message(message.chat.id, text=wet)
     elif message.text == '3':
         e = 51-x
         r = (y*e)/50
-        wer = ' Вам нужно набрать как минимум ' + str(r) + ' , ' + 'чтобы начать занова нажмите /start'
+        wer = ' Вам нужно набрать как минимум ' + str(r) + ' , ' + 'чтобы начать заново нажмите /start'
         bot.send_message(message.chat.id, text=wer)
     elif message.text == 'Проследить прогресс':
         bot.send_message(message.chat.id, "Введите команду /draw")
