@@ -168,14 +168,13 @@ def get_text_from_user(message):
             question = ' Вам нужно набрать как минимум ' + str(b)
             bot.send_message(message.chat.id, text=question)
     elif message.text == '4':
-        try:
-            x >= 15
-        except Exception:
+        if x < 15:
             bot.send_message(message.chat.id, "Упс! Похоже стоит выбрать другую оценку")
-        q = 65-x
-        w = (y*q)/50
-        wet = ' Вам нужно набрать как минимум ' + str(w)
-        bot.send_message(message.chat.id, text=wet)
+        else:
+            q = 65-x
+            w = (y*q)/50
+            wet = ' Вам нужно набрать как минимум ' + str(w)
+            bot.send_message(message.chat.id, text=wet)
     elif message.text == '3':
         e = 51-x
         r = (y*e)/50
