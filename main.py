@@ -94,7 +94,7 @@ def get_text_from_user(message):
         markup.row(item_ext)
         bot.send_message(message.chat.id, "Меню:", reply_markup=markup)
     elif message.text == 'Завтрак':
-        bot.reply_to(message, 'Рисовая каша')
+        bot.reply_to(message, 'Овсянка')
     elif message.text == 'Обед':
         bot.reply_to(message, 'Куриный суп и плов')
     elif message.text == 'Полдник':
@@ -184,8 +184,7 @@ def get_text_from_user(message):
         r = (y*e)/50
         wer = ' Вам нужно набрать как минимум ' + str(r) + ' , ' + 'чтобы начать заново нажмите /start'
         bot.send_message(message.chat.id, text=wer)
-    elif message.text == 'Проследить прогресс':
-        bot.send_message(message.chat.id, "Введите команду /draw")
+
 
 
 
